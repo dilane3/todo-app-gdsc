@@ -14,17 +14,20 @@
       <span class="logo">Todo App</span>
 
       <section class="todo-editor">
-        <input type="text" placeholder="Ajouter une nouvelle tache" />
-        <button class="btn-create">Ajouter</button>
+        <input type="text" placeholder="Ajouter une nouvelle tache" id="text-input" />
+        <button class="btn-create" id="btn-create">Ajouter</button>
       </section>
     </header>
 
     <section class="content">
-      <article class="list-todo">List</article>
+      <section class="list-todo" id="list-todo">
+        <!-- Liste des taches ici -->
+      </section>
     </section>
   </main>
 
   <script src="./lib/axios.min.js"></script>
+  <script src="./js/operations.js"></script>
   <script src="./js/script.js"></script>
 </body>
 </html>
