@@ -41,6 +41,8 @@ const createTodo = (value, target, marked = false, id=null) => {
 const deleteTodo = async (todoElement) => {
   const parent = todoElement.parentNode
 
+  /* Partie serveur
+
   // Suppression de la todo cote server
   const { data, error } = await removeTodo(todoElement.id)
 
@@ -49,12 +51,16 @@ const deleteTodo = async (todoElement) => {
     parent.removeChild(todoElement)
   }
 
-  // // Suppression de la todo cote client
-  // parent.removeChild(todoElement)
+  */
+
+  // Suppression de la todo cote client
+  parent.removeChild(todoElement)
 }
 
 // Mark todo
 const markTodo = async (todoContainer, checkboxInput) => {
+  /* Partie serveur
+
   // marquage d'une todo cote serveur
   const { data, error } = await updateTodo(todoContainer.id)
 
@@ -63,6 +69,8 @@ const markTodo = async (todoContainer, checkboxInput) => {
     todoContainer.classList.toggle("marked")
   }
 
-  // // marquage d'une todo cote client
-  // todoContainer.classList.toggle("marked")
+  */
+
+  // marquage d'une todo cote client
+  todoContainer.classList.toggle("marked")
 }

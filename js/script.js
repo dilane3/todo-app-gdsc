@@ -7,6 +7,8 @@ let deleteBtns = document.querySelectorAll(".delete-todo")
 
 // Gestion des evenements
 
+/* Partie serveur
+
 // Recuperation des todos
 window.addEventListener("load", async () => {
   const {data, error} = await getTodos()
@@ -17,6 +19,8 @@ window.addEventListener("load", async () => {
   }
 })
 
+*/
+
 // Creation d'une todo
 btnCreate.addEventListener("click", async (e) => {
   e.preventDefault()
@@ -24,6 +28,8 @@ btnCreate.addEventListener("click", async (e) => {
   const value = textInput.value
 
   if (value.length > 0) {
+    /* Partie serveur
+
     // creation d'une todo cote server
     const {data, error} = await postTodo(value)
 
@@ -36,9 +42,11 @@ btnCreate.addEventListener("click", async (e) => {
       textInput.value = ""
     }
 
-    // // creation d'une todo cote client
-    // createTodo(value, listTodo)
+    */
+
+    // creation d'une todo cote client
+    createTodo(value, listTodo)
   
-    // textInput.value = ""
+    textInput.value = ""
   }
 })
