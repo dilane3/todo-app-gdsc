@@ -1,8 +1,7 @@
 // Declarations de quelques operations
 
 // Creation d'une todo
-const createTodo = (data, target) => {
-  console.log(data)
+const createTodo = (value, target, marked = false, id=null) => {
   // creation des elements html
   const todoContainer = document.createElement("article")
   const dataContainer = document.createElement("div")
@@ -12,13 +11,20 @@ const createTodo = (data, target) => {
 
   // Ajout d'attributs
   todoContainer.classList.add("todo")
+
+  if (marked) {
+    todoContainer.classList.add("marked")
+  }
+
+  todoContainer.id = id ? id:undefined
   checkboxInput.type = "checkbox"
-  todoText.innerText = data
+  checkboxInput.checked = marked
+  todoText.innerText = value
   todoText.classList.add("todo-text")
   deleteBtn.innerText = "Supprimer"
   deleteBtn.classList.add("delete-todo")
-  deleteBtn.onclick = () => deleteTodo(todoContainer)
-  checkboxInput.onclick = () => markTodo(todoContainer, checkboxInput)
+  deleteBtn.onclick = async () => await deleteTodo(todoContainer)
+  checkboxInput.onclick = async () => await markTodo(todoContainer, checkboxInput)
 
   // Imbrication des elements
   dataContainer.appendChild(checkboxInput)
@@ -32,16 +38,31 @@ const createTodo = (data, target) => {
 }
 
 // Suppression d'une todo
-const deleteTodo = (todoElement) => {
+const deleteTodo = async (todoElement) => {
   const parent = todoElement.parentNode
 
-  parent.removeChild(todoElement)
+  // Suppression de la todo cote server
+  const { data, error } = await removeTodo(todoElement.id)
+
+  if (data) {
+    // Suppression de la todo cote client
+    parent.removeChild(todoElement)
+  }
+
+  // // Suppression de la todo cote client
+  // parent.removeChild(todoElement)
 }
 
 // Mark todo
-const markTodo = (todoContainer, checkboxInput) => {
-  todoContainer.classList.toggle("marked")
-  // checkboxInput.checked = !checkboxInput.checked
+const markTodo = async (todoContainer, checkboxInput) => {
+  // marquage d'une todo cote serveur
+  const { data, error } = await updateTodo(todoContainer.id)
 
-  console.log(checkboxInput)
+  if (data) {
+    // marquage d'une todo cote client
+    todoContainer.classList.toggle("marked")
+  }
+
+  // // marquage d'une todo cote client
+  // todoContainer.classList.toggle("marked")
 }

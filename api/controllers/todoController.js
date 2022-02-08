@@ -16,11 +16,12 @@ const getAllTodo = (req, res) => {
 const createTodo = (req, res) => {
   // extraction de la valeur de la requette
   const { value } = req.body
+  console.log({value})
 
   // creation d'une tache
   const todo = createT(value)
 
-  res.status(201).json({ message: "la tache a été créé" })
+  res.status(201).json({ message: "la tache a été créé", data: todo })
 }
 
 const markTodo = (req, res) => {

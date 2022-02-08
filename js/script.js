@@ -7,28 +7,38 @@ let deleteBtns = document.querySelectorAll(".delete-todo")
 
 // Gestion des evenements
 
+// Recuperation des todos
+window.addEventListener("load", async () => {
+  const {data, error} = await getTodos()
+
+  if (data) {
+    console.log(data)
+    data.forEach(item => createTodo(item.value, listTodo, item.marked, item.id))
+  }
+})
+
 // Creation d'une todo
-btnCreate.addEventListener("click", (e) => {
+btnCreate.addEventListener("click", async (e) => {
   e.preventDefault()
 
   const value = textInput.value
 
   if (value.length > 0) {
-    createTodo(value, listTodo)
+    // creation d'une todo cote server
+    const {data, error} = await postTodo(value)
 
-    textInput.value = ""
+    if (data) {
+      const todo = data.data
 
-    // Reselection des boutons
-    deleteBtns = document.querySelectorAll(".delete-todo")
+      // creation d'une todo cote client
+      createTodo(todo.value, listTodo, todo.marked, todo.id)
+  
+      textInput.value = ""
+    }
+
+    // // creation d'une todo cote client
+    // createTodo(value, listTodo)
+  
+    // textInput.value = ""
   }
 })
-
-// Suppression d'une todo
-// deleteBtns.forEach(btn => {
-//   btn.onclick = (e) => {
-//     e.preventDefault()
-//     console.log("hello")
-
-//     deleteTodo(btn.parentNode)
-//   }
-// })

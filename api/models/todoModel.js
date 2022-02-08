@@ -20,8 +20,12 @@ const createT = (value) => {
     marked: false
   }
 
+  console.log({todo})
+
   // Ajout de la tache dans la bd
   todos.push(todo)
+
+  return todo
 }
 
 // Marquage d'une tache
